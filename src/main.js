@@ -18,6 +18,7 @@ axios.interceptors.request.use(config =>{
 Vue.prototype.$axios=axios
 axios.interceptors.response.use(req=>{
   loading.close()
+  console.log(req)
   return req.data
 })
 new Vue({

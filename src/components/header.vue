@@ -37,24 +37,28 @@ export default {
         inputShow(){
             this.inputChecked = !this.inputChecked
         },
-        searchCity(){
-            this.$axios.get(`http://wthrcdn.etouch.cn/weather_mini?city=${this.whereCity}`).then(res => {
-            this.city = res.data.data.city;
-            let high = res.data.data.forecast[0].high;
-            let low = res.data.data.forecast[0].low;
-            this.type = res.data.data.forecast[0].type;
-            this.high = high.slice(3)
-            this.low = low.slice(3)
-            this.whereCity = ""
-          })
+        searchCity:function(){
+              this.$axios.get(`http://wthrcdn.etouch.cn/weather_mini?city=${this.whereCity}`).then(res => {
+              this.city = res.data.city;
+              let high = res.data.forecast[0].high;
+              let low = res.data.forecast[0].low;
+              this.type = res.data.forecast[0].type;
+              this.high = high.slice(3)
+              this.low = low.slice(3)
+              this.whereCity = ""
+              }).catch(error =>{
+                this.$message({type:'error',message:'没有该城市'})
+                this.whereCity=''
+              })
+        
         }
     },
     mounted(){
         this.$axios.get('http://wthrcdn.etouch.cn/weather_mini?city=北京市').then(res => {
-        this.city = res.data.data.city;
-        let high = res.data.data.forecast[0].high;
-        let low = res.data.data.forecast[0].low;
-        this.type = res.data.data.forecast[0].type;
+        this.city = res.data.city;
+        let high = res.data.forecast[0].high;
+        let low = res.data.forecast[0].low;
+        this.type = res.data.forecast[0].type;
         this.high = high.slice(3)
         this.low = low.slice(3)
       })
