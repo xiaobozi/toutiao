@@ -1,10 +1,6 @@
 <!--  -->
 <template>
   <div class="newsList">
-      <div class="searchBox">
-          <input type="text" placeholder="搜索站内资讯,视频或用户"/>
-          <el-button class="btn" type='danger'>搜索</el-button>
-      </div>
       <div class="login">
           <div class="content" v-if="!isLogin">
               <p>登录后可以保持您的浏览爱好、评论、收藏,</p>
@@ -47,7 +43,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import NewPane from '../News/PaneModule'
+import NewPane from './PaneModule'
 import {mapState} from 'vuex'
 import {mapMutations} from 'vuex'
 export default {
@@ -76,7 +72,6 @@ export default {
       dlmsg(){
           this.$router.push('/login')
       },
-
     //退出登录
     ttmsg(){
         this.logout()
@@ -87,9 +82,6 @@ export default {
     }
 
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
-  //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
       if(this.Login){
           let now = new Date().getTime()
@@ -97,13 +89,7 @@ export default {
           now > last && this.logout()
       }
   },
-  beforeCreate() {}, //生命周期 - 创建之前
-  beforeMount() {}, //生命周期 - 挂载之前
-  beforeUpdate() {}, //生命周期 - 更新之前
-  updated() {}, //生命周期 - 更新之后
-  beforeDestroy() {}, //生命周期 - 销毁之前
-  destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+
 };
 </script>
 <style lang='less' scoped>
@@ -141,7 +127,6 @@ export default {
     }
     .login{
         background-color: #f4f5f6;
-        height: 230px;
         padding: 20px;
         box-sizing: border-box;
         .content{
