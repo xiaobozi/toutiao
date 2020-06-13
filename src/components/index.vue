@@ -21,7 +21,7 @@
 <script>
     import MyNav from './Nav/Nav'
     import MyUser from './User/User'
-    import MyHeader from './modules/header'
+    import MyHeader from './modules/Header'
     import MyMain from './News/News'
     
     export default {
