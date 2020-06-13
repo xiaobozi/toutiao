@@ -43,18 +43,23 @@ export default {
             let high = res.data.data.forecast[0].high;
             let low = res.data.data.forecast[0].low;
             this.type = res.data.data.forecast[0].type;
-            this.high = high.slice(3)
-            this.low = low.slice(3)
-            this.whereCity = ""
-          })
+            this.high = high.slice(3);
+            this.low = low.slice(3);
+            this.whereCity = "";
+            this.inputChecked = false;
+            }).catch(()=>{
+              this.$message({type:"error",message:"这不是一个城市,请输入城市"})
+              this.whereCity = ""
+            })
         }
+        
     },
     mounted(){
         this.$axios.get('http://wthrcdn.etouch.cn/weather_mini?city=北京市').then(res => {
-        this.city = res.data.data.city;
-        let high = res.data.data.forecast[0].high;
-        let low = res.data.data.forecast[0].low;
-        this.type = res.data.data.forecast[0].type;
+        this.city = res.data.city;
+        let high = res.data.forecast[0].high;
+        let low = res.data.forecast[0].low;
+        this.type = res.data.forecast[0].type;
         this.high = high.slice(3)
         this.low = low.slice(3)
       })
@@ -64,8 +69,9 @@ export default {
 
 <style lang="less" scoped>
     header{
+      width: 100%;
+      min-width: 1100px;
       height: 30px;
-      min-width: 700px;
       background-color: #222222;
       display: flex;
       justify-content: space-between;
