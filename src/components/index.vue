@@ -23,15 +23,22 @@
     import MyUser from './User/User'
     import MyHeader from './modules/Header'
     import MyMain from './News/News'
-    
+    import {mapState} from 'vuex'
     export default {
         name: 'index',
+        computed: {
+            ...mapState(['handleScroll'])
+        },
         components: {
             MyNav,
             MyUser,
             MyHeader,
             MyMain
         },
+        beforeRouteLeave (to, from, next) {
+            document.removeEventListener('scroll',this.handleScroll)
+            next()
+        }
     }
 </script>
 

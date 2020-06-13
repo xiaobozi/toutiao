@@ -8,10 +8,14 @@ Vue.use(Vuex)
 // };
 let state = JSON.parse(localStorage.getItem('state')) || {};
 state.searchData = []
+state.handleScroll = ''
 /* 变动 */
 const mutations = {
     setSearchData(state,data){
         state.searchData = data
+    },
+    setScrollHandle(state,cb){
+        state.handleScroll = cb
     },
 	Login : (state,isLogin) => {
         localStorage.setItem('isLogin',isLogin);
