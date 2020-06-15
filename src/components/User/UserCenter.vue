@@ -44,11 +44,11 @@
             </div>
             <div class="rigth">
                 <div class="ttcount">
-                    <p class="p1"><span>{{userinfo.tt_count}}</span></p>
+                    <p class="p1"><span>{{ttData.length}}</span></p>
                     <p class="p2"><span>头条数</span></p>
                 </div>
                 <div class="artcount">
-                    <p class="p1"><span>{{userinfo.article_count}}</span></p>
+                    <p class="p1"><span>{{wzData.length}}</span></p>
                     <p class="p2"><span>文章数</span></p>
                 </div>
             </div>

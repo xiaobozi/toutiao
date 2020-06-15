@@ -1,7 +1,7 @@
 <template>
     <div class="mask">
     <el-form :model="ruleForm"  :rules="rules" ref="ruleForm"  class="demo-ruleForm">
-        <p >{{text}}</p>
+        <p >账密登录</p>
         <el-form-item  prop="user">
             <el-input type="text" v-model="ruleForm.user" clearable placeholder='账号/邮箱' @change="isToken">
             </el-input>
@@ -19,7 +19,7 @@
         <span >登录/注册即表示你同意
         <a href="https://www.toutiao.com/user_agreement/" target="_blank">用户协议</a> 和
         <a href="https://www.toutiao.com/privacy_protection/" target="_blank">隐私条款</a> 
-        <a style="margin-left: 40px;" class="sign" @click='goSign'>{{text2}}</a></span>
+        <a style="margin-left: 40px;" class="sign" @click='goSign'>注册用户</a></span>
     </div>
     </div>
 </template>
@@ -31,9 +31,6 @@ import { mapMutations } from 'vuex'
                 value.trim().length?callback():callback(new Error('输入错误'))
             };
             return {
-                text:'账密登录',
-                text2:'注册用户',
-                flag:'',
                 ruleForm: {
                     user: '',
                     pwd:''
@@ -52,12 +49,10 @@ import { mapMutations } from 'vuex'
         },
         
         methods: {
-            ...mapMutations(['Login','userinfo']),
+            ...mapMutations(['userinfo']),
             isToken(){
-               
                 this.$refs['ruleForm'].validate((valid) => {
                     if (valid) {
-                        if(this.text === '账密登录' ){
                             this.$axios.post('loginCheck',{username:this.ruleForm.user,password:this.ruleForm.pwd})
                             .then(res=>{
                                 if(res.ret){
@@ -67,36 +62,14 @@ import { mapMutations } from 'vuex'
                                     })
                                 }else{
                                     this.userinfo(res.wdata)
-                                    this.Login(true)
                                     this.$router.replace('/')
                                 }
                             })
-                        }else{
-                            this.$axios.post('createUser',{username:this.ruleForm.user,password:this.ruleForm.pwd})
-                            .then(res=>{
-                                if(!res.ret){
-                                    this.$message({message:res.msg,type:'success'})
-                                }else{
-                                    this.flag= true
-                                    this.$message({message:res.msg,type:'error'})
-                                }
-                            })
-                        }
-                    } else {
-                        return false;
                     }
                 });
             },
             goSign(){
-                [this.text,this.text2]=[this.text2,this.text]
-                if(this.flag){
-                    this.$axios.post('loginCheck',{username:this.ruleForm.user,password:this.ruleForm.pwd})
-                        .then(res=>{
-                                this.userinfo(res.wdata)
-                                this.Login(true)
-                                this.$router.replace('/')
-                        })
-                }
+                this.$router.push('/sign')
             }
         },
         

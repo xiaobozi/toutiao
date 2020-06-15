@@ -2,7 +2,7 @@
 <template>
     <div class="newsList">
         <div class="login">
-            <div class="content" v-if="!isLogin">
+            <div class="content" v-if="!userinfo">
                 <p>登录后可以保持您的浏览爱好、评论、收藏,</p>
                 <p>并与APP同步,更可以发布微头条</p>
                 <el-button class="btn" @click="dlmsg">登录</el-button>
@@ -61,13 +61,13 @@
         },
         //监听属性 类似于data概念
         computed: {
-            ...mapState(['isLogin', 'userinfo'])
+            ...mapState([ 'userinfo'])
         },
         //监控data中的数据变化
         //方法集合
         methods: {
             //   登录
-            ...mapMutations(['logout', 'Login']),
+            ...mapMutations(['logout']),
             dlmsg() {
                 this.$router.push('/login')
             },
@@ -79,10 +79,9 @@
             goUserCenter() {
                 this.$router.push("userCenter")
             },
-
         },
         mounted() {
-            if (this.isLogin) {
+            if (this.userinfo) {
                 let now = new Date().getTime()
                 let last = new Date(this.userinfo.oauth_expire_time).getTime()
                 now > last && this.logout()
