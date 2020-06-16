@@ -85,7 +85,16 @@
                 let now = new Date().getTime()
                 let last = new Date(this.userinfo.oauth_expire_time).getTime()
                 now > last && this.logout()
+                let str = `/getArticlesByType?type=TT&oauth_token=${this.userinfo.oauth_token}`
+                let str2 = `/getArticlesByType?type=Article&oauth_token=${this.userinfo.oauth_token}`
+                this.$axios.get(str).then(res => {
+                    this.userinfo.tt_count = res.articles.length
+                })
+                this.$axios.get(str2).then(res => {
+                    this.userinfo.article_count = res.articles.length
+                })
             }
+            
         },
 
     };

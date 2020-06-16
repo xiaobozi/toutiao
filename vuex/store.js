@@ -25,7 +25,6 @@ const mutations = {
         userinfo.tt_count = count;
         localStorage.setItem('userinfo',JSON.stringify(state.userinfo));
         state.userinfo = userinfo;
-        console.log(count);
         /* 更新保存全局state变量 */
         localStorage.setItem('state',JSON.stringify(state))
     },

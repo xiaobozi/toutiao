@@ -95,23 +95,15 @@ export default {
         ...mapState(['userinfo']),
     },
     methods: {
-            ...mapMutations(['updateTTCount','updateArticleCount']),
+         ...mapMutations(['updateTTCount', 'updateArticleCount']),
             exceed(){
                 this.$message('文件最多3个')
             },
             releasett(){
-                if(!this.userinfo){
-                    return this.$message({
-                        message:'请先登录',
-                        type:'error'
-                    })
-                }
-                if(!this.writeTt){
-                    return this.$message({
-                        message:'没有输入内容',
-                        type:'error'
-                    })
-                }
+                if(!this.userinfo)
+                    return this.$message.error('请先登录')
+                if(!this.writeTt)
+                    return this.$message.error('没有输入内容')
                 let imgs = this.fileList.map(e => e.response.url)
                 let param = new FormData();
                 param.append('content',this.writeTt);
@@ -121,7 +113,7 @@ export default {
                 .then(response=>{
                     if (response.ret == 0){
                         this.$message(`${response.msg}`)
-                        this.updateTTCount(this.userinfo.tt_count + 1);
+                        this.updateTTCount(++this.userinfo.tt_count)
                         return true;
                     }else{
                         response.status = 'fail';
@@ -131,12 +123,8 @@ export default {
                 })
             },
             releasewz(){
-                if(!this.userinfo){
-                    return this.$message({
-                        message:'请先登录',
-                        type:'error'
-                    })
-                }
+                if(!this.userinfo)
+                    return this.$message.error('请先登录')
                 let param = new FormData();
                     param.append('content',this.writewzText);
                     param.append('img','');
@@ -146,8 +134,8 @@ export default {
                     .then(response=>{
                     if (response.ret == 0){
                         response.status = 'success';
+                        this.updateArticleCount(++this.userinfo.article_count)
                         this.$message(`${response.msg}`)
-                        this.updateArticleCount(this.userinfo.article_count + 1)
                         return true;
                     }else{
                         response.status = 'fail';
